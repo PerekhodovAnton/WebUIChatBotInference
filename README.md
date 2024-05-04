@@ -6,7 +6,7 @@ Add your model inference to LLM/model.py so it returns predictions \
 It is Postgres to collect all queries, responses and users if it is a need \
 
 ### To run Postgres (docker):
-Move to backend/DB and in command line:
+Move to /backend/DB and in command line:
 ```bash
 docker-compose up -d
 ```
@@ -16,6 +16,7 @@ Move to /backend and in command line:
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 ### To run WebUI (React): 
+Move to /frontend
 ```bash
 npm run dev
 ```
