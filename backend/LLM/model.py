@@ -2,5 +2,5 @@
 
 class Model:
     def model(text):
-        return f'your model will proccess this text: {text} \
-            \n Look at LLM/model/py'
+        return f'Your model will proccess this text: {text} \
+            \n Look at LLM/model.py'
