@@ -1,5 +1,6 @@
 # WebUI Inference for any model (FastAPI + React + Postgres)
 
+![webui](https://github.com/PerekhodovAnton/WebUIChatBotInference/assets/145850725/a0984bae-7aa3-40c6-9c92-5bf9567c2b82)
 
 Add your model inference to LLM/model.py so it returns predictions \
 It is Postgres to collect all queries, responses and users if it is a need \
