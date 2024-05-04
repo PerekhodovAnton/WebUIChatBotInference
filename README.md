@@ -4,7 +4,7 @@
 
 Add your model inference to LLM/model.py so it returns predictions \
 It is Postgres to collect all queries, responses and users if it is a need \
-≈
+
 ### To run Postgres (docker):
 Move to backend/DB and in command line:
 ```bash
