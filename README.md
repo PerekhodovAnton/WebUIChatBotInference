@@ -5,7 +5,7 @@
 
 Look at https://huggingface.co/spaces and open one you like \
 Almost every space is made with Gradio, so it is 'use api' usually at the bottom of page \
-Add your model inference to LLM/model.py so it returns predictions. Default: tenyx/Llama3-TenyxChat-70B \
+Add your model inference to LLM/model.py so it returns predictions. Default: Qwen2-72B-Instruct \
 It is Postgres to collect all queries, responses and users if it is a need \
 
 ### To run Postgres (docker):
