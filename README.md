@@ -1,8 +1,11 @@
-# WebUI Inference for any model (FastAPI + React + Postgres)
+# WebUI Inference for any model from HF Gradio API (FastAPI + React + Postgres)
+
 
 ![webui](https://github.com/PerekhodovAnton/WebUIChatBotInference/assets/145850725/a0984bae-7aa3-40c6-9c92-5bf9567c2b82)
 
-Add your model inference to LLM/model.py so it returns predictions \
+Look at https://huggingface.co/spaces and open one you like
+Almost every space is made with Gradio, so it is 'use api' usually at the bottom of page
+Add your model inference to LLM/model.py so it returns predictions. Default: tenyx/Llama3-TenyxChat-70B \
 It is Postgres to collect all queries, responses and users if it is a need \
 
 ### To run Postgres (docker):
@@ -22,6 +25,5 @@ npm run dev
 ```
 # TODO
 1. Authorization (if needed)
-2. Check for query validity (column already in DB)
+2. Check for query validity (column already in DB) (if needed)
 3. Upgrade model insertion
-4. ???

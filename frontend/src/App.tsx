@@ -14,7 +14,7 @@ function ChatBot() {
         setBotTyping(true);
 
         try {
-            const response = await fetch('http://0.0.0.0:8000/chatbot', {
+            const response = await fetch('http://0.0.0.0:8001/chatbot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ function ChatBot() {
 
   const typeMessage = async (text, message) => {
     for (let i = 0; i < text.length; i++) {
-      await delay(50); // Задержка между выводом каждой буквы (в миллисекундах)
+      await delay(20); // Задержка между выводом каждой буквы (в миллисекундах)
       message.text += text[i];
       setMessages(prevMessages => [...prevMessages]);
     }

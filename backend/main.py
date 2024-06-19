@@ -1,18 +1,19 @@
 import asyncio
-import asyncpg
-from fastapi import FastAPI
-from DB.postgres_intercation import DBinsert, connect_to_database
+from fastapi import FastAPI, HTTPException
+from DB.postgres_intercation import DBinsert
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import time 
 from LLM.model import Model
-
+import asyncpg
 
 app = FastAPI()
 
 # это пока тоже тестовые данные, т.к. сервис авторизации пока не реализован
 username = 'Anton'
 user_type = 'admin'
+
+# Модель указать ниже
+model = Model("Qwen/Qwen2-72B-Instruct")
 
 # Настройка CORS
 app.add_middleware(
@@ -23,22 +24,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class InputData(BaseModel):
-    text: str
+# Глобальная переменная для пула соединений
+db_pool = None
 
-
-@app.post("/chatbot")
-async def receive_query(query: InputData):
-    conn = await connect_to_database(
+@app.on_event("startup")
+async def startup():
+    global db_pool
+    db_pool = await asyncpg.create_pool(
         user='postgres',
         password='sql',
         database='postgres',
         host='localhost'
-        )
-    query = query.text
-    user_id = await DBinsert.user(conn, username, user_type) 
-    user_id, query_id = await DBinsert.query(conn, user_id, query) 
-    summary = Model.model(query)
-    await DBinsert.response(conn, summary, query_id)
-    await conn.close()
-    return {"message": summary}
+    )
+    print("Database connection pool created")
+
+@app.on_event("shutdown")
+async def shutdown():
+    await db_pool.close()
+    print("Database connection pool closed")
+
+class InputData(BaseModel):
+    text: str
+
+
+
+@app.post("/chatbot")
+async def receive_query(query: InputData):
+    async with db_pool.acquire() as conn:
+        try:
+            query_text = query.text
+            user_id = await DBinsert.user(conn, username, user_type)
+            user_id, query_id = await DBinsert.query(conn, user_id, query_text)
+            prediction = model.get_prediction(query_text)
+            await DBinsert.response(conn, prediction[:200], query_id)
+            return {"message": prediction}
+        except Exception as e:
+            print(e)
+            raise HTTPException(status_code=500, detail=str(e))
+            
