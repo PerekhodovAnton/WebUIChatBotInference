@@ -31,6 +31,7 @@ body {
 
 
 .message {
+    color: #000000; 
     margin-bottom: 15px;
     padding: 10px 15px;
     border-radius: 8px;
@@ -68,6 +69,7 @@ body {
 }
 
 .message-form input {
+    background-color: #fff;
     flex: 1;
     padding: 8px;
     border-radius: 20px;
