@@ -6,7 +6,7 @@ CREATE TABLE users (
 
 CREATE TABLE queries (
     queryid BIGSERIAL PRIMARY KEY,
-    message VARCHAR(255),
+    message TEXT,
     validity VARCHAR(255),
     date_time TIMESTAMP,
     userid INTEGER REFERENCES users(userid)
@@ -14,7 +14,7 @@ CREATE TABLE queries (
 
 CREATE TABLE responses (
     responseid BIGSERIAL PRIMARY KEY,
-    text VARCHAR(255),
+    text TEXT,
     date_time TIMESTAMP,
     queryid INTEGER REFERENCES queries(queryid)
 );

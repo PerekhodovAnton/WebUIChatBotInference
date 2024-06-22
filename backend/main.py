@@ -24,41 +24,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Глобальная переменная для пула соединений
-db_pool = None
+class InputData(BaseModel):
+    text: str
 
-@app.on_event("startup")
-async def startup():
-    global db_pool
-    db_pool = await asyncpg.create_pool(
+@app.post("/chatbot")
+async def receive_query(query: InputData): 
+    pool = await asyncpg.create_pool(
         user='postgres',
         password='sql',
         database='postgres',
         host='localhost'
     )
-    print("Database connection pool created")
 
-@app.on_event("shutdown")
-async def shutdown():
-    await db_pool.close()
-    print("Database connection pool closed")
+    db_pooled = DBinsert(pool) 
 
-class InputData(BaseModel):
-    text: str
-
-
-
-@app.post("/chatbot")
-async def receive_query(query: InputData):
-    async with db_pool.acquire() as conn:
-        try:
-            query_text = query.text
-            user_id = await DBinsert.user(conn, username, user_type)
-            user_id, query_id = await DBinsert.query(conn, user_id, query_text)
-            prediction = model.get_prediction(query_text)
-            await DBinsert.response(conn, prediction[:200], query_id)
-            return {"message": prediction}
-        except Exception as e:
-            print(e)
-            raise HTTPException(status_code=500, detail=str(e))
-            
+    try:
+        query_text = query.text
+        user_id = await db_pooled.user(username, user_type)
+        user_id, query_id = await db_pooled.query(user_id, query_text)
+        prediction = model.get_prediction(query_text)
+        await db_pooled.response(prediction, query_id)
+        return {"message": prediction}
+    
+    except Exception as e:
+        print(e) 
+  
