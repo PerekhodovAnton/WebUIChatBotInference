@@ -6,7 +6,7 @@
 Look at https://huggingface.co/spaces and open one you like\
 Almost every space is made with Gradio, so it is 'use api' usually at the bottom of the page\
 Add your gradio api to LLM/gradio_api_model.py. Default: Qwen/Qwen2-72B-Instruct\
-If you want to use llama.cpp gguf model -> download it to LLM/cache and specify path in main.py\ 
+If you want to use llama.cpp gguf model -> download it to LLM/cache and specify path in main.py\
 Postgres DB to collect all queries, responses and users if it is a need
 
 ### To dowloand test llm for llama.cpp :
