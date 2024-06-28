@@ -1,28 +1,4 @@
-import asyncio
-import asyncpg
-from fastapi import FastAPI
-
-
-app = FastAPI()
-
-# подключаемся к БД
-async def connect_to_database(user, password, database, host):
-    try:
-        conn = await asyncpg.connect(
-            user=user,
-            password=password,
-            database=database,
-            host=host
-        )
-        print("Connected to the database successfully!")
-        return conn
-    except asyncpg.PostgresError as e:
-        print(f"Error connecting to the database: {e}")
-
-import asyncpg
-
-# реализован класс для вставки данных в БД
-class DBinsert:
+class DBInteractions:
     @staticmethod
     async def user(conn, name, user_type):
         existing_user = await conn.fetchrow(
@@ -56,4 +32,3 @@ class DBinsert:
             text, query_id
         )
         print("Response inserted successfully!")
-

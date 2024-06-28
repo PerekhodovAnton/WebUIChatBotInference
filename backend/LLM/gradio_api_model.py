@@ -1,13 +1,13 @@
-# Gradio model is here
 from gradio_client import Client
 
-
-class Model:
+# Class for model with gradio api (only sync available) 
+class GradioModel:
     def __init__(self, model) -> None:
         self.client = Client(model)
+        
         pass
     
-    def get_prediction(self, text):
+    def get_prediction(self, text:str):
         result = self.client.predict(
                 query=f"{text}",
                 #history not working 
@@ -16,3 +16,4 @@ class Model:
                 api_name="/model_chat"
             )
         return result[1][0][1]
+

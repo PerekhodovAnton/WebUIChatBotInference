@@ -1,0 +1,1 @@
+wget 'https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v0.3-GGUF/resolve/main/tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf'  -P 'backend/LLM/cache'
