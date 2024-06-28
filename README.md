@@ -10,7 +10,6 @@ If you want to use llama.cpp gguf model -> download it to LLM/cache and specify 
 Postgres DB to collect all queries, responses and users if it is a need
 
 ### To dowloand test llm for llama.cpp :
-Move to /backend and in command line:
 ```bash
 bash donwload.sh
 ```
